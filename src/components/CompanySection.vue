@@ -29,6 +29,7 @@ export default {
   width: 10vh
   height: 100%
   border-radius: 50%
+  margin-right: 10px
 
 .wrapper
   display: flex
