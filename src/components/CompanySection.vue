@@ -3,7 +3,7 @@
   <div class="text-purple q-gutter-md">
     <div class="wrapper">
       <div class="purple-circle"></div>
-      <div class="text-h3 text-uppercase name">travolta</div>
+      <div class="text-uppercase name">travolta</div>
     </div>
   </div>
 </div>
@@ -44,4 +44,8 @@ export default {
   align-items: center
   color: black
   margin-left: auto
+  font-size: 38px
+  @media(max-width: 415px)
+    name:
+    font-size: 28px
 </style>

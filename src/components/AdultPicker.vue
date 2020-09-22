@@ -1,6 +1,7 @@
 <template>
   <div class="input-wrapper">
-    <q-input outlined v-model="text" label="Outlined" dense="true" />
+    <label for="AdultPicker"><span class="label-span">Adults</span></label>
+    <q-input outlined v-model="text" label="Outlined" name="AdultPicker" :dense="true" />
   </div>
 </template>
 <script>
@@ -14,6 +15,15 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-  .q-field__control
-    height: 10px !important
+.q-field--dense .q-field__label
+  top: -25px
+.input-wrapper
+  width: 45%
+@media(orientation: portrait)
+  .input-wrapper
+    width: 49%
+    margin: 5px 0
+  .input-wrapper
+    .label-span
+      margin: 0 0 0 10px
 </style>
