@@ -1,5 +1,6 @@
-export default function () {
+export default function searchData () {
   return {
-    //
+    destinations: [],
+    hotels: []
   }
 }

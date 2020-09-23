@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import CompanySection from 'components/CompanySection.vue'
 import SearchForm from 'components/SearchForm.vue'
 import ButtonBlock from 'components/ButtonBlock.vue'
@@ -44,6 +45,10 @@ export default {
   data () {
     return {
     }
+  },
+  computed: {
+    ...mapGetters('searchData', ['getDestination']),
+    ...mapGetters('searchData', ['getHotels'])
   }
 }
 </script>

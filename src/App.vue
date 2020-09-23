@@ -4,7 +4,16 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 export default {
-  name: 'App'
+  name: 'App',
+  mounted () {
+    this.getDestinations()
+    this.getHotels()
+  },
+  methods: {
+    ...mapActions('searchData', ['getDestinations']),
+    ...mapActions('searchData', ['getHotels'])
+  }
 }
 </script>
