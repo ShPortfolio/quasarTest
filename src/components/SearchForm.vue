@@ -1,5 +1,5 @@
 <template>
-  <div class="q-form-md flex wrapper">
+  <div class="q-form-md flex wrapper" lang="es">
     <div class="inputs flex">
       <DestinationPicker />
       <CheckinPicker />
