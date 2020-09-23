@@ -1,7 +1,7 @@
 <template>
   <div class="input-wrapper">
     <label for="AdultPicker"><span class="label-span">Adults</span></label>
-    <q-input outlined v-model="text" label="Outlined" name="AdultPicker" :dense="true" />
+    <q-input outlined  v-model.number="model" type="number" filled label="enter number" name="AdultPicker" :dense="true" />
   </div>
 </template>
 <script>
@@ -9,7 +9,7 @@ export default {
   name: 'AdultPicker',
   data () {
     return {
-      text: ''
+      model: 0
     }
   }
 }

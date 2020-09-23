@@ -1,14 +1,14 @@
 <template>
   <div class="input-wrapper">
     <label for="CheckOutPicker"><span class="label-span">Check-out</span></label>
-    <q-input outlined v-model="text" label="Outlined" name="CheckOutPicker" :dense="true" />
+    <q-input outlined v-model="date" filled type="date" hint="Native date" name="CheckOutPicker" :dense="true" />
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      text: ''
+      date: ''
     }
   }
 }

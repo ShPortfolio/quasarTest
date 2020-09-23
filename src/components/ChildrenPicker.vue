@@ -1,14 +1,14 @@
 <template>
   <div class="input-wrapper">
     <label for="ChildrenPicker"><span class="label-span">Children</span></label>
-    <q-input outlined v-model="text" label="Outlined" name="CildrenPicker" :dense="true" />
+    <q-input outlined  v-model.number="model" type="number" filled label="enter number" name="AdultPicker" :dense="true" />
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      text: ''
+      model: 0
     }
   }
 }

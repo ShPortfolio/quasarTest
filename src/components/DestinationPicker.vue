@@ -1,14 +1,19 @@
 <template>
   <div class="input-wrapper">
     <label for="DestinationPicker"><span class="label-span">Destination</span></label>
-    <q-input outlined v-model="text" label="Outlined" name="DestinationPicker" :dense="true" />
+    <!-- <q-input outlined v-model="text" name="DestinationPicker"  /> -->
+    <q-input outlined v-model="search" name="DestinationPicker"  filled type="search" hint="Search" :dense="true">
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      text: ''
+      search: ''
     }
   }
 }
