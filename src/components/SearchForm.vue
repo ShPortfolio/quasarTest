@@ -1,11 +1,11 @@
 <template>
   <div class="q-form-md flex wrapper" lang="es">
     <div class="inputs flex">
-      <DestinationPicker />
+      <DestinationPicker @setDestination="destinationChange" />
       <CheckinPicker />
       <CheckoutPicker />
       <div class="age-section flex">
-        <AdultPicker />
+        <AdultPicker @changeNumber="adultNumberChange" />
         <ChildrenPicker />
       </div>
       <q-btn class="submit-button" @click="submit()" label="SEARCH" size="md"/>
@@ -30,12 +30,30 @@ export default {
   },
   data () {
     return {
-
+      isDestination: false,
+      isCheckin: false,
+      isCheckout: false,
+      searchObj: {
+        adultNumber: 1,
+        destination: null,
+        checkin: null,
+        checkout: null
+      }
     }
   },
   methods: {
-    submit: function () {
-      console.log('submit')
+    submit () {
+    // if (this.isDestination) {
+      // console.log(this.searchObj)
+    // }
+      console.log(this.searchObj)
+    },
+    adultNumberChange (value) {
+      this.$set(this.searchObj, 'adultNumber', value) // have to use it because of reactivity problem with object updating in quasar (vue dev tools still doesn't see changes)
+    },
+    destinationChange (value) {
+      this.$set(this.searchObj, 'destination', value)
+      this.isDestination = true
     }
   }
 }
