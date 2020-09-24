@@ -1,7 +1,7 @@
 <template>
   <div id="destination" class="input-wrapper">
-    <div v-show="search.length" class="autocopmleteList" :class="{'hidden': alreadyOpted}">
-      <div @click="optCityFromList(item.name)" class="cityItem" v-for="item in showRunningValue" :key="item.id">{{ item.name }}</div>
+    <div v-show="search" class="autocopmleteList" :class="{'hidden': alreadyOpted}">
+      <div @click="optCityFromList(item.name)" class="cityItem" v-for="item in deduplicatedValue" :key="item.id">{{ item.name }}</div>
     </div>
     <label for="DestinationPicker"><span class="label-span">Destination</span></label>
     <q-input outlined v-model="search" name="DestinationPicker"  filled type="search" :hint="hintMessage" :dense="true" v-on:keyup="checkInputLanguage">
@@ -13,10 +13,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import _ from 'lodash'
 export default {
   data () {
     return {
-      search: '',
+      search: null,
       hintMessage: 'Search',
       alreadyOpted: false
     }
@@ -48,13 +49,17 @@ export default {
     ...mapGetters('searchData', ['getDestination']),
     ...mapGetters('searchData', ['getHotels']),
     showRunningValue () {
-      return this.getDestination.filter((elem) => elem.name.toLowerCase().includes(this.search.toLowerCase()))
+      if (this.search) {
+        return this.getDestination.filter((elem) => elem.name.toLowerCase().includes(this.search.toLowerCase()))
+      } else {
+        return ''
+      }
     },
     runningSearchValue () {
       return this.search
     },
-    deduplicatedValue () { // doesn't work properly (San Francisco)
-      return this.showRunningValue.filter((elem) => this.showRunningValue.indexOf(elem))
+    deduplicatedValue () {
+      return _.uniqBy(this.showRunningValue, 'name')
     }
   }
 }
