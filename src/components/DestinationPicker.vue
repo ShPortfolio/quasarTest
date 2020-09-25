@@ -4,7 +4,7 @@
       <div @click="optCityFromList(item.name)" class="cityItem" v-for="item in deduplicatedValue" :key="item.id">{{ item.name }}</div>
     </div>
     <label for="DestinationPicker"><span class="label-span">Destination</span></label>
-    <q-input outlined v-model="search" name="DestinationPicker"  filled type="search" :hint="hintMessage" :dense="true" v-on:keyup="checkInputLanguage">
+    <q-input outlined v-model="search" autocomplete="off" name="DestinationPicker"  filled type="search" :hint="hintMessage" :dense="true" v-on:keyup="checkInputLanguage">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
@@ -85,6 +85,7 @@ export default {
   justify-content: flex-start
   align-items: center
   height: 40px
+  min-height: 40px
   width: 100%
   background-color: white
   padding-left: 15px
@@ -97,6 +98,10 @@ export default {
     width: 100%
     margin: 5px 0
   .input-wrapper
+    height: 20vh
     .label-span
       margin: 0 0 0 10px
+  .autocopmleteList
+    max-height: 100%
+    overflow-y: scroll
 </style>

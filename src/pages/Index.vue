@@ -8,11 +8,15 @@
        <ButtonBlock />
      </div>
     </div>
-    <div class="search-form">
-      <SearchForm />
+    <div v-if="showSearchPannel" class="search-form">
+      <SearchForm @showSearchResult="hideSearchPannel" @filterSearch="findWithCriteria"/>
+    </div>
+    <div v-else class="result-block">
+      <FilterSet @filterSearchResult="changeFilterCriteria" @changeRatingCriteria="changeOptedRating" />
+      <SearchResult :filterKeys="filterCriteria" :ratingOption="ratingOption" :initialSearch="initialSearchResults" />
     </div>
     <div>
-      <div class="custom-card text-black">
+      <div v-if="showSearchPannel" class="custom-card text-black">
         <q-card-section>
           <div class="text-h6">Travel with <span class="colored-name">TRAVOLTA</span></div>
         </q-card-section>
@@ -33,17 +37,49 @@
 import CompanySection from 'components/CompanySection.vue'
 import SearchForm from 'components/SearchForm.vue'
 import ButtonBlock from 'components/ButtonBlock.vue'
-
+import FilterSet from 'components/FilterSet.vue'
+import SearchResult from 'components/SearchResult.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'PageIndex',
   components: {
     CompanySection,
     SearchForm,
-    ButtonBlock
+    ButtonBlock,
+    FilterSet,
+    SearchResult
   },
   data () {
     return {
+      showSearchPannel: true,
+      filterCriteria: null,
+      ratingOption: null,
+      initialSearchResults: null
     }
+  },
+  methods: {
+    hideSearchPannel (value) {
+      this.showSearchPannel = value
+    },
+    changeFilterCriteria (value) {
+      this.filterCriteria = value
+    },
+    changeOptedRating (value) {
+      if (this.ratingOption !== value) {
+        this.ratingOption = value
+      } else {
+        this.ratingOption = null
+      }
+    },
+    findWithCriteria (value) {
+      console.log(value)
+      setTimeout(() => {
+        this.initialSearchResults = this.getHotels.filter(elem => elem.city.includes(value))
+      }, 1000)
+    }
+  },
+  computed: {
+    ...mapGetters('searchData', ['getHotels'])
   }
 }
 </script>
@@ -55,7 +91,6 @@ export default {
     border: 2px solid $grey-10
     padding: 2% 4%
     max-width: 100vw
-
   .up-block
     display: flex
     flex-direction: row
@@ -74,6 +109,15 @@ export default {
     padding: 5px
   .colored-name
     color: $purple-13
+  .result-block
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: flex-start
+    width: 100%
+    height: fit-content
+    min-height: 100px
+    border-radius: 5px
   @media(orientation: portrait)
     .search-form
       height: auto

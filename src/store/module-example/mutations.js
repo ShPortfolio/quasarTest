@@ -7,5 +7,5 @@ export function setHotels (state, text) {
 }
 
 export function setSearchObject (state, text) {
-  state.searchObject = text
+  state.searchObjects.push(text)
 }

@@ -9,11 +9,9 @@ export default {
   name: 'App',
   mounted () {
     this.getDestinations()
-    this.getHotels()
   },
   methods: {
-    ...mapActions('searchData', ['getDestinations']),
-    ...mapActions('searchData', ['getHotels'])
+    ...mapActions('searchData', ['getDestinations'])
   }
 }
 </script>

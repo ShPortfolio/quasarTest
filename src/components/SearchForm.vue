@@ -18,7 +18,7 @@ import CheckinPicker from 'components/CheckinPicker.vue'
 import CheckoutPicker from 'components/CheckoutPicker.vue'
 import AdultPicker from 'components/AdultPicker.vue'
 import ChildrenPicker from 'components/ChildrenPicker.vue'
-
+import { mapActions } from 'vuex'
 export default {
   name: 'SearchForm',
   components: {
@@ -35,20 +35,32 @@ export default {
       isCheckout: false,
       searchObj: {
         adultNumber: 1,
-        childrenNumber: null,
+        childrenNumber: 0,
         destination: null,
         checkin: null,
         checkout: null
-      }
+      },
+      objectFilledProperly: false
     }
   },
   methods: {
     submit () {
-      const storedObject = JSON.parse(JSON.stringify(this.searchObj))
-      this.$store.commit('searchData/setSearchObject', storedObject)
+      this.checkIfObjectNotEmpty()
+      if (this.objectFilledProperly) {
+        this.getHotels()
+        const storedObject = JSON.parse(JSON.stringify(this.searchObj))
+        this.$store.commit('searchData/setSearchObject', storedObject) // to keep search request of user for next time
+        this.$emit('filterSearch', storedObject.destination)
+        this.$emit('showSearchResult', false)
+        this.$emit('findWithCriteria', storedObject)
+      }
+    },
+    checkIfObjectNotEmpty () {
+      const arrFromObj = Object.entries(this.searchObj)
+      this.objectFilledProperly = arrFromObj.every(x => x !== null)
     },
     adultNumberChange (value) {
-      this.$set(this.searchObj, 'adultNumber', value) // I had to use it because of reactivity problem with object updating in quasar (vue dev tools still doesn't see changes)
+      this.$set(this.searchObj, 'adultNumber', value) // I had to use it because of reactivity problem with object updating in quasar (vue dev tools still doesn't see changes immediately)
     },
     destinationChange (value) {
       this.$set(this.searchObj, 'destination', value)
@@ -64,7 +76,8 @@ export default {
     },
     childrenNumberChange (value) {
       this.$set(this.searchObj, 'childrenNumber', value)
-    }
+    },
+    ...mapActions('searchData', ['getHotels'])
   }
 }
 </script>
