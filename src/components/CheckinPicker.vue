@@ -10,6 +10,11 @@ export default {
     return {
       date: ''
     }
+  },
+  watch: {
+    date (val) {
+      this.$emit('setCheckinDate', val)
+    }
   }
 }
 </script>

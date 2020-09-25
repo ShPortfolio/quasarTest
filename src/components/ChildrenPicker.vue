@@ -10,6 +10,11 @@ export default {
     return {
       childrenNumber: ''
     }
+  },
+  watch: {
+    childrenNumber (val) {
+      this.$emit('setChildrenNumber', val)
+    }
   }
 }
 </script>

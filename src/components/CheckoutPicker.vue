@@ -10,6 +10,11 @@ export default {
     return {
       date: 'dd.mm.yyyy'
     }
+  },
+  watch: {
+    date (val) {
+      this.$emit('setCheckoutDate', val)
+    }
   }
 }
 </script>

@@ -2,11 +2,11 @@
   <div class="q-form-md flex wrapper" lang="es">
     <div class="inputs flex">
       <DestinationPicker @setDestination="destinationChange" />
-      <CheckinPicker />
-      <CheckoutPicker />
+      <CheckinPicker @setCheckinDate="checkinChange" />
+      <CheckoutPicker @setCheckoutDate="checkoutChange"/>
       <div class="age-section flex">
         <AdultPicker @changeNumber="adultNumberChange" />
-        <ChildrenPicker />
+        <ChildrenPicker @setChildrenNumber="childrenNumberChange" />
       </div>
       <q-btn class="submit-button" @click="submit()" label="SEARCH" size="md"/>
     </div>
@@ -35,6 +35,7 @@ export default {
       isCheckout: false,
       searchObj: {
         adultNumber: 1,
+        childrenNumber: null,
         destination: null,
         checkin: null,
         checkout: null
@@ -43,17 +44,26 @@ export default {
   },
   methods: {
     submit () {
-    // if (this.isDestination) {
-      // console.log(this.searchObj)
-    // }
-      console.log(this.searchObj)
+      const storedObject = JSON.parse(JSON.stringify(this.searchObj))
+      this.$store.commit('searchData/setSearchObject', storedObject)
     },
     adultNumberChange (value) {
-      this.$set(this.searchObj, 'adultNumber', value) // have to use it because of reactivity problem with object updating in quasar (vue dev tools still doesn't see changes)
+      this.$set(this.searchObj, 'adultNumber', value) // I had to use it because of reactivity problem with object updating in quasar (vue dev tools still doesn't see changes)
     },
     destinationChange (value) {
       this.$set(this.searchObj, 'destination', value)
       this.isDestination = true
+    },
+    checkinChange (value) {
+      this.$set(this.searchObj, 'checkin', value)
+      this.isCheckin = true
+    },
+    checkoutChange (value) {
+      this.$set(this.searchObj, 'checkout', value)
+      this.isCheckout = true
+    },
+    childrenNumberChange (value) {
+      this.$set(this.searchObj, 'childrenNumber', value)
     }
   }
 }
