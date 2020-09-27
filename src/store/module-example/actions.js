@@ -15,3 +15,12 @@ export async function getHotels (context) {
       })
     })
 }
+
+export async function getPreviousSearchCriteria (context) {
+  fetch('http://localhost:3000/Search-criteria')
+    .then(response => {
+      response.json().then(list => {
+        context.commit('setPreviousSearchObject', list)
+      })
+    })
+}

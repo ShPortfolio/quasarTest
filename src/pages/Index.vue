@@ -72,7 +72,6 @@ export default {
       }
     },
     findWithCriteria (value) {
-      console.log(value)
       setTimeout(() => {
         this.initialSearchResults = this.getHotels.filter(elem => elem.city.includes(value))
       }, 1000)

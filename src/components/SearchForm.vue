@@ -19,6 +19,7 @@ import CheckoutPicker from 'components/CheckoutPicker.vue'
 import AdultPicker from 'components/AdultPicker.vue'
 import ChildrenPicker from 'components/ChildrenPicker.vue'
 import { mapActions } from 'vuex'
+import axios from 'axios'
 export default {
   name: 'SearchForm',
   components: {
@@ -49,11 +50,20 @@ export default {
       if (this.objectFilledProperly) {
         this.getHotels()
         const storedObject = JSON.parse(JSON.stringify(this.searchObj))
-        this.$store.commit('searchData/setSearchObject', storedObject) // to keep search request of user for next time
+        this.postSearchObjectInDb(storedObject)
         this.$emit('filterSearch', storedObject.destination)
         this.$emit('showSearchResult', false)
         this.$emit('findWithCriteria', storedObject)
       }
+    },
+    async postSearchObjectInDb (storedObject) {
+      axios.post('http://localhost:3000/Search-criteria', {
+        searchObject: storedObject
+      })
+        .then(response => {})
+        .catch(e => {
+          this.erros.push(e)
+        })
     },
     checkIfObjectNotEmpty () {
       const arrFromObj = Object.entries(this.searchObj)

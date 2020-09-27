@@ -9,3 +9,7 @@ export function setHotels (state, text) {
 export function setSearchObject (state, text) {
   state.searchObjects.push(text)
 }
+
+export function setPreviousSearchObject (state, text) {
+  state.searchObjects = text
+}

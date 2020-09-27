@@ -4,3 +4,6 @@ export function getDestination (state) {
 export function getHotels (state) {
   return state.hotels
 }
+export function getPreviousSearchObj (state) {
+  return state.searchObjects
+}
