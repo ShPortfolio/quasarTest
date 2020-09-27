@@ -3,6 +3,16 @@
     <div class="search-result-item" v-for="item in filteredList" :key="item.id">
       <HotelItem :itemData="item" />
     </div>
+    <div v-if="!filteredList.length" class="message">
+      <q-card class="my-card bg-purple text-white">
+        <q-card-section>
+          <div class="text-h6">{{noFoundMessage}}</div>
+        </q-card-section>
+        <q-card-actions>
+          <a href="/"><q-btn size="md" color="white" text-color="black" label="Back to Search" /></a>
+        </q-card-actions>
+      </q-card>
+    </div>
   </div>
 </template>
 <script>
@@ -14,7 +24,8 @@ export default {
   props: ['filterKeys', 'ratingOption', 'initialSearch'],
   data () {
     return {
-      isDetailsShown: false
+      isDetailsShown: false,
+      noFoundMessage: 'there was no destination found'
     }
   },
   methods: {
@@ -26,17 +37,13 @@ export default {
     filteredList () {
       console.log(this.filterKeys, this.ratingOption)
       if (this.filterKeys && !this.ratingOption) {
-        console.log('only keys')
         return this.initialSearch.filter(elem => elem.name.toLowerCase().includes(this.filterKeys.toLowerCase()))
       } else if (this.filterKeys && this.ratingOption) {
-        console.log('keys and rating')
         return this.initialSearch.filter(elem => elem.name.toLowerCase().includes(this.filterKeys.toLowerCase())).filter(elem => Math.floor(elem.hotel_rating) === this.ratingOption)
       } else if (!this.filterKeys && this.ratingOption) {
-        console.log('only rating')
         return this.initialSearch.filter(elem => elem.hotel_rating === this.ratingOption)
       } else {
-        console.log('no criteria')
-        return this.initialSearch
+        return []
       }
     }
   }
